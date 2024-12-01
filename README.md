@@ -3,6 +3,8 @@
 ## **Task to be completed**
  - Match all the models with all the table columns writing the maxlengths and other validations
  - Update db command (which comes after migration command)
+ - Check endpoints, e.g. customer endpoint isn't there
+ - Fix errors
 
 ## **Project Overview**  
 A web-based application that helps users plan meals, create recipes, track nutrition, and manage shopping lists. Features include user authentication, role-based access control (RBAC), recipe management, meal planning, and analytics.
@@ -21,6 +23,7 @@ A web-based application that helps users plan meals, create recipes, track nutri
 1. **User Authentication & RBAC**  
    - Secure login for Admin, Chef, Nutritionist, Customer, and Meal Planner.  
    - Role-specific permissions.  
+   - Only admin can register admins
 
 2. **Recipe Management**  
    - Create, update, and manage recipes with categories and dietary preferences.  
@@ -38,32 +41,45 @@ A web-based application that helps users plan meals, create recipes, track nutri
 
 ## **Folder Structure**
 ```
-MEALPLANNERAPI/
-├── Controllers/
+MEALPLANNERAPI
+│
+├── Controllers
 │   ├── AuthController.cs
 │   ├── MealPlanController.cs
-│   └── RecipeController.cs
-├── Data/
-│   └── ApplicationDbContext.cs
-├── DTOs/
+│   ├── RecipeController.cs
+│
+├── Data
+│   ├── ApplicationDbContext.cs
+│
+├── DTOs
 │   ├── AuthRequestDto.cs
 │   ├── MealPlanDto.cs
-│   └── RecipeDto.cs
-├── Helpers/
-│   └── JwtHelper.cs
-├── Models/
-│   ├── User.cs
-│   ├── Recipe.cs
+│   ├── RecipeDto.cs
+│
+├── Helpers
+│   ├── JwtHelper.cs
+│
+├── Models
+│   ├── CookingInstruction.cs
+│   ├── DietaryPreference.cs
 │   ├── MealPlan.cs
+│   ├── Nutrition.cs
+│   ├── Recipe.cs
+│   ├── Report.cs
+│   ├── Review.cs
+│   ├── ShoppingList.cs
 │   ├── Subscription.cs
-│   └── Other Model Files...
-├── Services/
+│   ├── User.cs
+│
+├── Services
 │   ├── AuthService.cs
+│   ├── MealPlanService.cs
 │   ├── RecipeService.cs
-│   └── MealPlanService.cs
-├── Properties/
-├── obj/
-└── Program.cs
+│
+├── Properties
+│
+├── obj
+
 ```
 
 ---

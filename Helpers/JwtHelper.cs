@@ -1,37 +1,37 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using MealPlannerApi.Models;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace MealPlannerApi.Helpers
 {
-    public static class JwtHelper
+    public class JwtHelper
     {
-        /// <summary>
-        /// Generates a JWT token for the specified user.
-        /// </summary>
-        /// <param name="username">The username of the user for whom the token is being generated.</param>
-        /// <param name="role">The role of the user (e.g., Admin, Customer, Chef) for role-based access control.</param>
-        /// <param name="secretKey">The secret key used for signing the JWT token.</param>
-        /// <param name="issuer">The issuer of the JWT token, typically the application generating the token.</param>
-        /// <param name="audience">The intended audience of the JWT token, usually the application or service the token is meant for.</param>
-        /// <returns>A signed JWT token as a string.</returns>
-        public static string GenerateJwtToken(string username, string role, string secretKey, string issuer, string audience)
+        private readonly IConfiguration _config;
+
+        public JwtHelper(IConfiguration config)
+        {
+            _config = config;
+        }
+
+        public string GenerateToken(User user)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Role, role)
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim("UserId", user.UserId.ToString()) // Optional: include user-specific claims
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer,
-                audience,
-                claims,
-                expires: DateTime.Now.AddDays(1),
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddDays(7), // Token validity set to 7 days
                 signingCredentials: creds
             );
 

@@ -1,37 +1,52 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MealPlannerApi.DTOs;
 using MealPlannerApi.Services;
-using MealPlannerApi.DTOs; //for username and password
 
 namespace MealPlannerApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     public class AuthController : ControllerBase
     {
         private readonly AuthService _authService;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AuthController"/> class.
-        /// </summary>
-        /// <param name="authService">The service responsible for handling authentication logic.</param>
         public AuthController(AuthService authService)
         {
             _authService = authService;
         }
 
-        /// <summary>
-        /// Logs in a user and generates a JWT token.
-        /// </summary>
-        /// <param name="request">The login request containing username and password.</param>
-        /// <returns>A JWT token if credentials are valid, otherwise an Unauthorized response.</returns>
         [HttpPost("login")]
-        public IActionResult Login([FromBody] AuthRequestDto request)
+        public IActionResult Login(AuthRequestDto model)
         {
-            var token = _authService.Authenticate(request.Username, request.Password);
-            if (string.IsNullOrEmpty(token))
-                return Unauthorized("Invalid credentials");
+            var result = _authService.Login(model);
+            return result != null ? Ok(result) : Unauthorized("Invalid credentials");
+        }
 
-            return Ok(new { Token = token });
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            _authService.Logout();
+            return Ok("Logged out successfully");
+        }
+
+        [HttpPost("register/customer")]
+        public IActionResult RegisterCustomer(RegisterRequestDto model)
+        {
+            model.Role = "Customer"; // Default role
+            var result = _authService.Register(model);
+            return result ? Ok("Customer registered successfully") : BadRequest("Registration failed");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("register/role")]
+        public IActionResult RegisterRole(RegisterRoleRequestDto model)
+        {
+            if (!new[] { "Chef", "Nutritionist", "Meal Planner" }.Contains(model.Role))
+                return BadRequest("Invalid role assignment");
+
+            var result = _authService.Register(model);
+            return result ? Ok($"{model.Role} registered successfully") : BadRequest("Registration failed");
         }
     }
 }

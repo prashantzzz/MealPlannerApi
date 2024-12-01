@@ -1,4 +1,5 @@
 using MealPlannerApi.Data;
+using MealPlannerApi.Helpers;
 using MealPlannerApi.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Service registrations
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<JwtHelper>();
 builder.Services.AddScoped<RecipeService>();
 builder.Services.AddScoped<MealPlanService>();
 

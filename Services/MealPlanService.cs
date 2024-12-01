@@ -1,7 +1,6 @@
 ﻿using MealPlannerApi.Data;
 using MealPlannerApi.DTOs;
 using MealPlannerApi.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace MealPlannerApi.Services
 {
@@ -14,31 +13,51 @@ namespace MealPlannerApi.Services
             _context = context;
         }
 
-        public async Task<MealPlan> CreateMealPlanAsync(MealPlanDto mealPlanDto)
+        public List<MealPlan> GetMealPlansForUser(string userId)
+        {
+            int userIdInt = int.Parse(userId); // For a string `userId`
+            return _context.MealPlans.Where(mp => mp.UserId == userIdInt).ToList();
+            //return _context.MealPlans.Where(mp => mp.UserId == userId).ToList();
+        }
+
+        public MealPlan GetMealPlanById(int id)
+        {
+            return _context.MealPlans.Find(id);
+        }
+
+        public bool CreateMealPlan(MealPlanDto model)
         {
             var mealPlan = new MealPlan
             {
-                UserId = mealPlanDto.UserId,
-                StartDate = mealPlanDto.StartDate,
-                EndDate = mealPlanDto.EndDate,
-                MealType = mealPlanDto.MealType,
-                RecipeId = mealPlanDto.RecipeId
+                UserId = model.UserId,
+                StartDate = model.StartDate,
+                EndDate = model.EndDate,
+                MealType = model.MealType,
+                RecipeId = model.RecipeId
             };
-
             _context.MealPlans.Add(mealPlan);
-            await _context.SaveChangesAsync();
-            return mealPlan;
+            return _context.SaveChanges() > 0;
         }
 
-        public async Task<MealPlan> GetMealPlanByIdAsync(int id)
+        public bool UpdateMealPlan(int id, MealPlanDto model)
         {
-            return await _context.MealPlans
-                .FirstOrDefaultAsync(mp => mp.MealPlanId == id);
+            var mealPlan = _context.MealPlans.Find(id);
+            if (mealPlan == null) return false;
+
+            mealPlan.StartDate = model.StartDate;
+            mealPlan.EndDate = model.EndDate;
+            mealPlan.MealType = model.MealType;
+            mealPlan.RecipeId = model.RecipeId;
+            return _context.SaveChanges() > 0;
         }
 
-        public async Task<List<MealPlan>> GetAllMealPlansAsync()
+        public bool DeleteMealPlan(int id)
         {
-            return await _context.MealPlans.ToListAsync();
+            var mealPlan = _context.MealPlans.Find(id);
+            if (mealPlan == null) return false;
+
+            _context.MealPlans.Remove(mealPlan);
+            return _context.SaveChanges() > 0;
         }
     }
 }

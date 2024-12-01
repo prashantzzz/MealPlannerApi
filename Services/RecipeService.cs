@@ -1,4 +1,5 @@
 ﻿using MealPlannerApi.Data;
+using MealPlannerApi.DTOs;
 using MealPlannerApi.Models;
 
 namespace MealPlannerApi.Services
@@ -12,36 +13,80 @@ namespace MealPlannerApi.Services
             _context = context;
         }
 
-        public List<Recipe> GetAllRecipes()
+        public IEnumerable<RecipeDto> GetAllRecipes()
         {
-            return _context.Recipes.ToList();
-        }
-
-        public Recipe GetRecipeById(int id)
-        {
-            return _context.Recipes.FirstOrDefault(r => r.RecipeId == id);
-        }
-
-        public void AddRecipe(Recipe recipe)
-        {
-            _context.Recipes.Add(recipe);
-            _context.SaveChanges();
-        }
-
-        public void UpdateRecipe(Recipe recipe)
-        {
-            _context.Recipes.Update(recipe);
-            _context.SaveChanges();
-        }
-
-        public void DeleteRecipe(int id)
-        {
-            var recipe = _context.Recipes.FirstOrDefault(r => r.RecipeId == id);
-            if (recipe != null)
+            return _context.Recipes.Select(recipe => new RecipeDto
             {
-                _context.Recipes.Remove(recipe);
-                _context.SaveChanges();
-            }
+                Name = recipe.Name,
+                Category = recipe.Category,
+                Ingredients = recipe.Ingredients,
+                PreparationSteps = recipe.PreparationSteps,
+                CookingTime = recipe.CookingTime,
+                Servings = recipe.Servings,
+                NutritionalInfo = recipe.NutritionalInfo
+            }).ToList();
+        }
+
+        public RecipeDto GetRecipeById(int id)
+        {
+            var recipe = _context.Recipes.FirstOrDefault(r => r.Id == id);
+            if (recipe == null) return null;
+
+            return new RecipeDto
+            {
+                Name = recipe.Name,
+                Category = recipe.Category,
+                Ingredients = recipe.Ingredients,
+                PreparationSteps = recipe.PreparationSteps,
+                CookingTime = recipe.CookingTime,
+                Servings = recipe.Servings,
+                NutritionalInfo = recipe.NutritionalInfo
+            };
+        }
+
+        public bool CreateRecipe(RecipeDto model)
+        {
+            var newRecipe = new Recipe
+            {
+                Name = model.Name,
+                Category = model.Category,
+                Ingredients = model.Ingredients,
+                PreparationSteps = model.PreparationSteps,
+                CookingTime = model.CookingTime,
+                Servings = model.Servings,
+                NutritionalInfo = model.NutritionalInfo
+            };
+
+            _context.Recipes.Add(newRecipe);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool UpdateRecipe(int id, RecipeDto model)
+        {
+            var recipe = _context.Recipes.FirstOrDefault(r => r.Id == id);
+            if (recipe == null) return false;
+
+            recipe.Name = model.Name;
+            recipe.Category = model.Category;
+            recipe.Ingredients = model.Ingredients;
+            recipe.PreparationSteps = model.PreparationSteps;
+            recipe.CookingTime = model.CookingTime;
+            recipe.Servings = model.Servings;
+            recipe.NutritionalInfo = model.NutritionalInfo;
+
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteRecipe(int id)
+        {
+            var recipe = _context.Recipes.FirstOrDefault(r => r.Id == id);
+            if (recipe == null) return false;
+
+            _context.Recipes.Remove(recipe);
+            _context.SaveChanges();
+            return true;
         }
     }
 }

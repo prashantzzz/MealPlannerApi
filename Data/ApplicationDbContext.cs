@@ -17,5 +17,6 @@ namespace MealPlannerApi.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<MealPrep> MealPreps { get; set; }
     }
 }
