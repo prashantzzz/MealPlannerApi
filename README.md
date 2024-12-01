@@ -97,11 +97,76 @@ MEALPLANNERAPI/
 ---
 
 ## **API Endpoints**
-| Endpoint              | Method | Description                       |
-|-----------------------|--------|-----------------------------------|
-| `/api/auth/login`     | POST   | User login with JWT generation    |
-| `/api/recipes`        | GET    | Retrieve all recipes              |
-| `/api/mealplans`      | POST   | Create a personalized meal plan   |
+
+### **Authentication**  
+| Endpoint               | Method | Description                         |
+|------------------------|--------|-------------------------------------|
+| `/api/auth/login`      | POST   | User login with JWT generation      |
+| `/api/auth/register`   | POST   | Register a new user (Admin-only)    |
+| `/api/auth/logout`     | POST   | User logout                         |
+
+---
+
+### **User Management**  
+| Endpoint               | Method | Description                         |
+|------------------------|--------|-------------------------------------|
+| `/api/users`           | GET    | Get all users (Admin-only)          |
+| `/api/users/{id}`      | GET    | Get user details by ID              |
+| `/api/users/{id}`      | PUT    | Update user details (Admin-only)    |
+| `/api/users/{id}`      | DELETE | Delete user (Admin-only)            |
+
+---
+
+### **Recipes**  
+| Endpoint               | Method | Description                         |
+|------------------------|--------|-------------------------------------|
+| `/api/recipes`         | GET    | Get all recipes                     |
+| `/api/recipes/{id}`    | GET    | Get a recipe by ID                  |
+| `/api/recipes`         | POST   | Create a new recipe (Chef/Nutritionist) |
+| `/api/recipes/{id}`    | PUT    | Update a recipe (Chef/Nutritionist) |
+| `/api/recipes/{id}`    | DELETE | Delete a recipe (Chef/Nutritionist) |
+
+---
+
+### **Meal Planning**  
+| Endpoint                   | Method | Description                               |
+|----------------------------|--------|-------------------------------------------|
+| `/api/mealplans`           | GET    | Get all meal plans for the logged-in user |
+| `/api/mealplans/{id}`      | GET    | Get a specific meal plan by ID            |
+| `/api/mealplans`           | POST   | Create a new meal plan                    |
+| `/api/mealplans/{id}`      | PUT    | Update an existing meal plan              |
+| `/api/mealplans/{id}`      | DELETE | Delete a meal plan                        |
+
+---
+
+### **Shopping List**  
+| Endpoint                       | Method | Description                         |
+|--------------------------------|--------|-------------------------------------|
+| `/api/shoppinglists`           | GET    | Get all shopping lists              |
+| `/api/shoppinglists/{id}`      | GET    | Get a shopping list by ID           |
+| `/api/shoppinglists`           | POST   | Generate a shopping list for a meal plan |
+| `/api/shoppinglists/{id}`      | PUT    | Update shopping list item status    |
+| `/api/shoppinglists/{id}`      | DELETE | Delete a shopping list              |
+
+---
+
+### **Reviews**  
+| Endpoint               | Method | Description                         |
+|------------------------|--------|-------------------------------------|
+| `/api/reviews`         | GET    | Get all reviews for a recipe        |
+| `/api/reviews/{id}`    | POST   | Add a new review for a recipe       |
+| `/api/reviews/{id}`    | PUT    | Update a review                     |
+| `/api/reviews/{id}`    | DELETE | Delete a review                     |
+
+---
+
+### **Subscriptions**  
+| Endpoint                   | Method | Description                         |
+|----------------------------|--------|-------------------------------------|
+| `/api/subscriptions`       | GET    | Get all subscriptions for a user    |
+| `/api/subscriptions/{id}`  | POST   | Create a new subscription           |
+| `/api/subscriptions/{id}`  | PUT    | Update subscription details         |
+| `/api/subscriptions/{id}`  | DELETE | Cancel a subscription               |
 
 ---
 
@@ -116,5 +181,3 @@ MEALPLANNERAPI/
 - Add CORS policies in `Program.cs` for external integrations.
 
 ---
-
-Let me know if you need further details!
