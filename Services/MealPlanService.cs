@@ -13,11 +13,14 @@ namespace MealPlannerApi.Services
             _context = context;
         }
 
-        public List<MealPlan> GetMealPlansForUser(string userId)
+        public User GetUserByUsername(string username)
         {
-            int userIdInt = int.Parse(userId); // For a string `userId`
-            return _context.MealPlans.Where(mp => mp.UserId == userIdInt).ToList();
-            //return _context.MealPlans.Where(mp => mp.UserId == userId).ToList();
+            return _context.Users.FirstOrDefault(u => u.Username == username);
+        }
+
+        public List<MealPlan> GetMealPlansForUser(int userId)  // Change to int
+        {
+            return _context.MealPlans.Where(mp => mp.UserId == userId).ToList();
         }
 
         public MealPlan GetMealPlanById(int id)

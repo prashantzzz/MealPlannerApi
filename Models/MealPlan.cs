@@ -8,7 +8,7 @@ namespace MealPlannerApi.Models
         public int MealPlanId { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int UserId { get; set; }  // Change to int
 
         [Required]
         public DateTime StartDate { get; set; }
@@ -17,7 +17,7 @@ namespace MealPlannerApi.Models
         public DateTime EndDate { get; set; }
 
         [Required, MaxLength(20)]
-        public string MealType { get; set; } // Breakfast, Lunch, etc.
+        public string MealType { get; set; }
 
         [Required]
         public int RecipeId { get; set; }

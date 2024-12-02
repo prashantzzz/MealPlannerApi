@@ -4,6 +4,7 @@ using MealPlannerApi.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,6 +23,10 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<JwtHelper>();
 builder.Services.AddScoped<RecipeService>();
 builder.Services.AddScoped<MealPlanService>();
+builder.Services.AddScoped<ReviewService>();
+builder.Services.AddScoped<ShoppingListService>();
+builder.Services.AddScoped<SubscriptionService>();
+builder.Services.AddScoped<UserService>();
 
 // JWT Authentication setup
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>

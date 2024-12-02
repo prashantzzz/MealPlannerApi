@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MealPlannerApi.Services;
 using MealPlannerApi.DTOs;
+using MealPlannerApi.Models;
 
 namespace MealPlannerApi.Controllers
 {
@@ -20,9 +21,17 @@ namespace MealPlannerApi.Controllers
         [HttpGet]
         public IActionResult GetMealPlans()
         {
-            var userId = User.Identity.Name; // Assumes User.Identity.Name is the UserId
-            return Ok(_mealPlanService.GetMealPlansForUser(userId));
+            var username = User.Identity.Name; 
+            var user = _mealPlanService.GetUserByUsername(username);  // Service method to retrieve user by username
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            return Ok(_mealPlanService.GetMealPlansForUser(user.UserId));  // Passing the user.UserId to the service
         }
+
 
         [Authorize]
         [HttpGet("{id}")]

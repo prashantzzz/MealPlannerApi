@@ -1,10 +1,9 @@
 ﻿# **Recipe and Meal Planning Management System**
 
 ## **Task to be completed**
- - Match all the models with all the table columns writing the maxlengths and other validations
- - Update db command (which comes after migration command)
- - Check endpoints, e.g. customer endpoint isn't there
- - Fix errors
+ - Match all the models with all the table columns writing the maxlengths/required attr. and other validations
+ - No need of migration due to manual table creation
+ - Fix endpoints working
 
 ## **Project Overview**  
 A web-based application that helps users plan meals, create recipes, track nutrition, and manage shopping lists. Features include user authentication, role-based access control (RBAC), recipe management, meal planning, and analytics.
