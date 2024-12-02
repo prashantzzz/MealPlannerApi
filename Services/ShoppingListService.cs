@@ -27,9 +27,9 @@ namespace MealPlannerApi.Services
         {
             var shoppingList = new ShoppingList
             {
-                UserId = model.UserId,
-                ItemName = model.ItemName,
-                Quantity = model.Quantity,
+                MealPlanId = model.MealPlanId, // Corrected property
+                IngredientName = model.IngredientName, // Corrected property
+                Quantity = model.Quantity, // No conversion needed as it's already double
                 Status = model.Status
             };
             _context.ShoppingLists.Add(shoppingList);
@@ -41,8 +41,8 @@ namespace MealPlannerApi.Services
             var shoppingList = _context.ShoppingLists.Find(id);
             if (shoppingList == null) return false;
 
-            shoppingList.ItemName = model.ItemName;
-            shoppingList.Quantity = model.Quantity;
+            shoppingList.IngredientName = model.IngredientName;
+            shoppingList.Quantity = model.Quantity; 
             shoppingList.Status = model.Status;
             return _context.SaveChanges() > 0;
         }

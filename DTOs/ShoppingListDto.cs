@@ -2,9 +2,9 @@
 {
     public class ShoppingListDto
     {
-        public string UserId { get; set; }
-        public string ItemName { get; set; }
-        public string Quantity { get; set; }
-        public string Status { get; set; } // Example: "Pending", "Purchased"
+        public int MealPlanId { get; set; }
+        public string IngredientName { get; set; }
+        public double Quantity { get; set; } // Changed to double
+        public string Status { get; set; } // Pending, Purchased
     }
 }

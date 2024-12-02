@@ -17,30 +17,30 @@ namespace MealPlannerApi.Services
         {
             return _context.Users.Select(u => new UserDto
             {
-                Id = u.Id,
+                UserId = u.UserId, // Fixed from Id to UserId
                 Username = u.Username,
                 Role = u.Role,
                 IsActive = u.IsActive
             }).ToList();
         }
 
-        public UserDto GetUserById(int id)
+        public UserDto GetUserById(int userId)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId); // Fixed from Id to UserId
             if (user == null) return null;
 
             return new UserDto
             {
-                Id = user.Id,
+                UserId = user.UserId, // Fixed from Id to UserId
                 Username = user.Username,
                 Role = user.Role,
                 IsActive = user.IsActive
             };
         }
 
-        public bool UpdateUser(int id, UserDto model)
+        public bool UpdateUser(int userId, UserDto model)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId); // Fixed from Id to UserId
             if (user == null) return false;
 
             user.Username = model.Username;
@@ -51,9 +51,9 @@ namespace MealPlannerApi.Services
             return true;
         }
 
-        public bool DeleteUser(int id)
+        public bool DeleteUser(int userId)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId); // Fixed from Id to UserId
             if (user == null) return false;
 
             _context.Users.Remove(user);
