@@ -39,51 +39,6 @@ A web-based application that helps users plan meals, create recipes, track nutri
 
 ---
 
-## **Folder Structure**
-```
-MEALPLANNERAPI
-│
-├── Controllers
-│   ├── AuthController.cs
-│   ├── MealPlanController.cs
-│   ├── RecipeController.cs
-│
-├── Data
-│   ├── ApplicationDbContext.cs
-│
-├── DTOs
-│   ├── AuthRequestDto.cs
-│   ├── MealPlanDto.cs
-│   ├── RecipeDto.cs
-│
-├── Helpers
-│   ├── JwtHelper.cs
-│
-├── Models
-│   ├── CookingInstruction.cs
-│   ├── DietaryPreference.cs
-│   ├── MealPlan.cs
-│   ├── Nutrition.cs
-│   ├── Recipe.cs
-│   ├── Report.cs
-│   ├── Review.cs
-│   ├── ShoppingList.cs
-│   ├── Subscription.cs
-│   ├── User.cs
-│
-├── Services
-│   ├── AuthService.cs
-│   ├── MealPlanService.cs
-│   ├── RecipeService.cs
-│
-├── Properties
-│
-├── obj
-
-```
-
----
-
 ## **Setup Instructions**
 1. **Clone the Repository**
    ```bash
@@ -117,6 +72,8 @@ MEALPLANNERAPI
 ---
 
 ## **API Endpoints**
+![image](https://github.com/user-attachments/assets/9da8b9ac-cde0-4b43-a0dd-1a1bbdf16c27)
+![image](https://github.com/user-attachments/assets/ed38391d-83a2-4ff3-937f-ae293d592b4c)
 
 ### **Authentication**  
 | Endpoint               | Method | Description                         |
@@ -174,7 +131,8 @@ MEALPLANNERAPI
 | Endpoint               | Method | Description                         |
 |------------------------|--------|-------------------------------------|
 | `/api/reviews`         | GET    | Get all reviews for a recipe        |
-| `/api/reviews/{id}`    | POST   | Add a new review for a recipe       |
+| `/api/reviews`         | POST   | Add a new review for a recipe       |
+| `/api/reviews/{id}`    | GET    | Get review by Id                    |
 | `/api/reviews/{id}`    | PUT    | Update a review                     |
 | `/api/reviews/{id}`    | DELETE | Delete a review                     |
 
