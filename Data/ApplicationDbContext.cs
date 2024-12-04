@@ -18,5 +18,7 @@ namespace MealPlannerApi.Data
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<MealPrep> MealPreps { get; set; }
+        public DbSet<AssignedUsers> AssignedUsers { get; set; }
+        public DbSet<MealPrep> MealPrep { get; set; }
     }
 }

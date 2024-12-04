@@ -27,6 +27,8 @@ builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<ShoppingListService>();
 builder.Services.AddScoped<SubscriptionService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AssignedUsersService>();
+builder.Services.AddScoped<MealPrepService>();
 
 // JWT Authentication setup
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>

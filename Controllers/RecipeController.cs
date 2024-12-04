@@ -16,12 +16,14 @@ namespace MealPlannerApi.Controllers
             _recipeService = recipeService;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllRecipes()
         {
             return Ok(_recipeService.GetAllRecipes());
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetRecipeById(int id)
         {

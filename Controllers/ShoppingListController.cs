@@ -33,7 +33,7 @@ namespace MealPlannerApi.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult CreateShoppingList(ShoppingListDto model)
+        public IActionResult CreateShoppingList(ShoppingListDto model) //Generate shopping list based on ingredients of meal plan
         {
             var result = _shoppingListService.CreateShoppingList(model);
             return result ? Ok("Shopping list created successfully") : BadRequest("Creation failed");

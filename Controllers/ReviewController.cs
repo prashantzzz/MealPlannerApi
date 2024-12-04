@@ -16,12 +16,14 @@ namespace MealPlannerApi.Controllers
             _reviewService = reviewService;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllReviews()
         {
             return Ok(_reviewService.GetAllReviews());
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetReviewById(int id)
         {

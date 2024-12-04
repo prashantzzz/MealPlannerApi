@@ -3,6 +3,7 @@
 ## **Task to be completed**
  - Match all the models with all the table columns writing the maxlengths/required attr. and other validations
  - No need of migration due to manual table creation
+ - Add data validation in services
  - Fix endpoints working
 
 ## **Project Overview**  
@@ -105,24 +106,50 @@ A web-based application that helps users plan meals, create recipes, track nutri
 ---
 
 ### **Meal Planning**  
-| Endpoint                   | Method | Description                               |
-|----------------------------|--------|-------------------------------------------|
-| `/api/mealplans`           | GET    | Get all meal plans for the logged-in user |
-| `/api/mealplans/{id}`      | GET    | Get a specific meal plan by ID            |
-| `/api/mealplans`           | POST   | Create a new meal plan                    |
-| `/api/mealplans/{id}`      | PUT    | Update an existing meal plan              |
-| `/api/mealplans/{id}`      | DELETE | Delete a meal plan                        |
+| Endpoint                | Method | Description                               |
+|-------------------------|--------|-------------------------------------------|
+| `/api/mealplans`        | GET    | Get all meal plans for the logged-in user |
+| `/api/mealplans/{id}`   | GET    | Get a specific meal plan by ID            |
+| `/api/mealplans`        | POST   | Create a new meal plan                    |
+| `/api/mealplans/{id}`   | PUT    | Update an existing meal plan              |
+| `/api/mealplans/{id}`   | DELETE | Delete a meal plan                        |
 
 ---
 
 ### **Shopping List**  
+| Endpoint                    | Method | Description                         |
+|-----------------------------|--------|-------------------------------------|
+| `/api/shoppinglists`        | GET    | Get all shopping lists              |
+| `/api/shoppinglists/{id}`   | GET    | Get a shopping list by ID           |
+| `/api/shoppinglists`        | POST   | Add a shopping list for a meal plan |
+| `/api/shoppinglists/{id}`   | PUT    | Update shopping list item status    |
+| `/api/shoppinglists/{id}`   | DELETE | Delete a shopping list              |
+
+---
+
+---
+
+### **Assigned Users List**  
 | Endpoint                       | Method | Description                         |
 |--------------------------------|--------|-------------------------------------|
-| `/api/shoppinglists`           | GET    | Get all shopping lists              |
-| `/api/shoppinglists/{id}`      | GET    | Get a shopping list by ID           |
-| `/api/shoppinglists`           | POST   | Generate a shopping list for a meal plan |
-| `/api/shoppinglists/{id}`      | PUT    | Update shopping list item status    |
-| `/api/shoppinglists/{id}`      | DELETE | Delete a shopping list              |
+| `/api/assignedusers`           | GET    | Retrieve all assigned users.        |
+| `/api/assignedusers/{id}`      | GET    | Retrieve a specific record by ID.   |
+| `/api/assignedusers`           | POST   | Add a new assigned user.            |
+| `/api/assignedusers/{id}`      | PUT    | Update an assigned user by ID.      |
+| `/api/assignedusers/{id}`      | DELETE | Delete an assigned user data.       |
+
+---
+
+---
+
+### **MealPrep List**  
+| Endpoint                 | Method | Description                         |
+|--------------------------|--------|-------------------------------------|
+| `/api/mealprep`          | GET    | Retrieve all meal preparations.     |
+| `/api/mealprep/{id}`     | GET    | Retrieve a specific meal preparation|
+| `/api/mealprep`          | POST   | Addd a new meal preparation.        |
+| `/api/mealprep/{id}`     | PUT    | Update a meal preparation by ID.    |
+| `/api/mealprep/{id}`     | DELETE | Delete a meal preparation by ID.    |
 
 ---
 

@@ -10,14 +10,9 @@ namespace MealPlannerApi.Models
 
         [ForeignKey("Recipe")]
         public int RecipeId { get; set; }
-
-        public Recipe Recipe { get; set; } // Navigation property
-
-        [MaxLength(50)]
         public string PortionSize { get; set; }
-
         public string IngredientsRequired { get; set; }
-
         public int PrepTime { get; set; }
+        public Recipe Recipe { get; set; }
     }
 }
