@@ -30,6 +30,17 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AssignedUsersService>();
 builder.Services.AddScoped<MealPrepService>();
 
+// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200") // Angular app's URL
+              .AllowAnyHeader()                     // Allow all headers
+              .AllowAnyMethod();                    // Allow all HTTP methods (GET, POST, etc.)
+    });
+});
+
 // JWT Authentication setup
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
 {
@@ -58,8 +69,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAngularApp");
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

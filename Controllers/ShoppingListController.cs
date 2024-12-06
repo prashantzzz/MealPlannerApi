@@ -20,7 +20,7 @@ namespace MealPlannerApi.Controllers
         [HttpGet]
         public IActionResult GetShoppingLists()
         {
-            return Ok(_shoppingListService.GetAllShoppingLists());
+            return Ok(new { data = _shoppingListService.GetAllShoppingLists() });
         }
 
         [Authorize]
@@ -28,15 +28,19 @@ namespace MealPlannerApi.Controllers
         public IActionResult GetShoppingListById(int id)
         {
             var shoppingList = _shoppingListService.GetShoppingListById(id);
-            return shoppingList != null ? Ok(shoppingList) : NotFound("Shopping list not found");
+            return shoppingList != null
+                ? Ok(new { data = shoppingList })
+                : NotFound(new { message = "Shopping list not found" });
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult CreateShoppingList(ShoppingListDto model) //Generate shopping list based on ingredients of meal plan
+        public IActionResult CreateShoppingList(ShoppingListDto model)
         {
             var result = _shoppingListService.CreateShoppingList(model);
-            return result ? Ok("Shopping list created successfully") : BadRequest("Creation failed");
+            return result
+                ? Ok(new { message = "Shopping list created successfully" })
+                : BadRequest(new { message = "Creation failed" });
         }
 
         [Authorize]
@@ -44,7 +48,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult UpdateShoppingList(int id, ShoppingListDto model)
         {
             var result = _shoppingListService.UpdateShoppingList(id, model);
-            return result ? Ok("Shopping list updated successfully") : NotFound("Shopping list not found");
+            return result
+                ? Ok(new { message = "Shopping list updated successfully" })
+                : NotFound(new { message = "Shopping list not found" });
         }
 
         [Authorize]
@@ -52,7 +58,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult DeleteShoppingList(int id)
         {
             var result = _shoppingListService.DeleteShoppingList(id);
-            return result ? Ok("Shopping list deleted successfully") : NotFound("Shopping list not found");
+            return result
+                ? Ok(new { message = "Shopping list deleted successfully" })
+                : NotFound(new { message = "Shopping list not found" });
         }
     }
 }

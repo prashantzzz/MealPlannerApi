@@ -20,7 +20,7 @@ namespace MealPlannerApi.Controllers
         [HttpGet]
         public IActionResult GetSubscriptions()
         {
-            return Ok(_subscriptionService.GetSubscriptionsForUser(User.Identity.Name));
+            return Ok(new { data = _subscriptionService.GetSubscriptionsForUser(User.Identity.Name) });
         }
 
         [Authorize(Roles = "Admin,Customer")]
@@ -28,7 +28,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult CreateSubscription(SubscriptionDto model)
         {
             var result = _subscriptionService.CreateSubscription(model);
-            return result ? Ok("Subscription created successfully") : BadRequest("Creation failed");
+            return result
+                ? Ok(new { message = "Subscription created successfully" })
+                : BadRequest(new { message = "Creation failed" });
         }
 
         [Authorize(Roles = "Admin,Customer")]
@@ -36,7 +38,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult UpdateSubscription(int id, SubscriptionDto model)
         {
             var result = _subscriptionService.UpdateSubscription(id, model);
-            return result ? Ok("Subscription updated successfully") : NotFound("Subscription not found");
+            return result
+                ? Ok(new { message = "Subscription updated successfully" })
+                : NotFound(new { message = "Subscription not found" });
         }
 
         [Authorize(Roles = "Admin,Customer")]
@@ -44,7 +48,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult CancelSubscription(int id)
         {
             var result = _subscriptionService.CancelSubscription(id);
-            return result ? Ok("Subscription cancelled successfully") : NotFound("Subscription not found");
+            return result
+                ? Ok(new { message = "Subscription cancelled successfully" })
+                : NotFound(new { message = "Subscription not found" });
         }
     }
 }

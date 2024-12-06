@@ -21,24 +21,34 @@ namespace MealPlannerApi.Controllers
         [HttpGet]
         public IActionResult GetMealPlans()
         {
-            var username = User.Identity.Name; 
-            var user = _mealPlanService.GetUserByUsername(username);  // Service method to retrieve user by username
+            var username = User.Identity?.Name;
+            if (string.IsNullOrEmpty(username))
+            {
+                return Unauthorized(new { message = "User is not authenticated" });
+            }
+
+            var user = _mealPlanService.GetUserByUsername(username); // Service method to retrieve user by username
 
             if (user == null)
             {
-                return NotFound("User not found.");
+                return NotFound(new { message = "User not found" });
             }
 
-            return Ok(_mealPlanService.GetMealPlansForUser(user.UserId));  // Passing the user.UserId to the service
+            var mealPlans = _mealPlanService.GetMealPlansForUser(user.UserId);
+            return Ok(new { message = "Meal plans retrieved successfully", data = mealPlans });
         }
-
 
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetMealPlanById(int id)
         {
             var mealPlan = _mealPlanService.GetMealPlanById(id);
-            return mealPlan != null ? Ok(mealPlan) : NotFound("Meal plan not found");
+            if (mealPlan != null)
+            {
+                return Ok(new { message = "Meal plan retrieved successfully", data = mealPlan });
+            }
+
+            return NotFound(new { message = "Meal plan not found" });
         }
 
         [Authorize(Roles = "Customer,MealPlanner")]
@@ -46,7 +56,12 @@ namespace MealPlannerApi.Controllers
         public IActionResult CreateMealPlan(MealPlanDto model)
         {
             var result = _mealPlanService.CreateMealPlan(model);
-            return result ? Ok("Meal plan created successfully") : BadRequest("Creation failed");
+            if (result)
+            {
+                return Ok(new { message = "Meal plan created successfully" });
+            }
+
+            return BadRequest(new { message = "Meal plan creation failed" });
         }
 
         [Authorize(Roles = "Customer,MealPlanner")]
@@ -54,7 +69,12 @@ namespace MealPlannerApi.Controllers
         public IActionResult UpdateMealPlan(int id, MealPlanDto model)
         {
             var result = _mealPlanService.UpdateMealPlan(id, model);
-            return result ? Ok("Meal plan updated successfully") : NotFound("Meal plan not found");
+            if (result)
+            {
+                return Ok(new { message = "Meal plan updated successfully" });
+            }
+
+            return NotFound(new { message = "Meal plan not found" });
         }
 
         [Authorize(Roles = "Customer,MealPlanner")]
@@ -62,7 +82,12 @@ namespace MealPlannerApi.Controllers
         public IActionResult DeleteMealPlan(int id)
         {
             var result = _mealPlanService.DeleteMealPlan(id);
-            return result ? Ok("Meal plan deleted successfully") : NotFound("Meal plan not found");
+            if (result)
+            {
+                return Ok(new { message = "Meal plan deleted successfully" });
+            }
+
+            return NotFound(new { message = "Meal plan not found" });
         }
     }
 }

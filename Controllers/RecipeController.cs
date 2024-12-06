@@ -20,7 +20,7 @@ namespace MealPlannerApi.Controllers
         [HttpGet]
         public IActionResult GetAllRecipes()
         {
-            return Ok(_recipeService.GetAllRecipes());
+            return Ok(new { data = _recipeService.GetAllRecipes() });
         }
 
         [Authorize]
@@ -28,7 +28,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult GetRecipeById(int id)
         {
             var recipe = _recipeService.GetRecipeById(id);
-            return recipe != null ? Ok(recipe) : NotFound("Recipe not found");
+            return recipe != null
+                ? Ok(new { data = recipe })
+                : NotFound(new { message = "Recipe not found" });
         }
 
         [Authorize(Roles = "Chef,Nutritionist")]
@@ -36,7 +38,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult CreateRecipe(RecipeDto model)
         {
             var result = _recipeService.CreateRecipe(model);
-            return result ? Ok("Recipe created successfully") : BadRequest("Creation failed");
+            return result
+                ? Ok(new { message = "Recipe created successfully" })
+                : BadRequest(new { message = "Creation failed" });
         }
 
         [Authorize(Roles = "Chef,Nutritionist")]
@@ -44,7 +48,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult UpdateRecipe(int id, RecipeDto model)
         {
             var result = _recipeService.UpdateRecipe(id, model);
-            return result ? Ok("Recipe updated successfully") : NotFound("Recipe not found");
+            return result
+                ? Ok(new { message = "Recipe updated successfully" })
+                : NotFound(new { message = "Recipe not found" });
         }
 
         [Authorize(Roles = "Chef,Nutritionist")]
@@ -52,7 +58,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult DeleteRecipe(int id)
         {
             var result = _recipeService.DeleteRecipe(id);
-            return result ? Ok("Recipe deleted successfully") : NotFound("Recipe not found");
+            return result
+                ? Ok(new { message = "Recipe deleted successfully" })
+                : NotFound(new { message = "Recipe not found" });
         }
     }
 }

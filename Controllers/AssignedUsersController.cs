@@ -20,7 +20,8 @@ namespace MealPlannerApi.Controllers
         [HttpGet]
         public IActionResult GetAllAssignedUsers()
         {
-            return Ok(_assignedUsersService.GetAllAssignedUsers());
+            var assignedUsers = _assignedUsersService.GetAllAssignedUsers();
+            return Ok(new { message = "Assigned users retrieved successfully", data = assignedUsers });
         }
 
         [Authorize]
@@ -28,15 +29,25 @@ namespace MealPlannerApi.Controllers
         public IActionResult GetAssignedUserById(int id)
         {
             var assignedUser = _assignedUsersService.GetAssignedUserById(id);
-            return assignedUser != null ? Ok(assignedUser) : NotFound("Assigned user not found");
+            if (assignedUser != null)
+            {
+                return Ok(new { message = "Assigned user retrieved successfully", data = assignedUser });
+            }
+
+            return NotFound(new { message = "Assigned user not found" });
         }
 
-        [Authorize] //will be updated automatically after succesfull payment by customer
+        [Authorize]
         [HttpPost]
         public IActionResult AddAssignedUser(AssignedUsersDto model)
         {
             var result = _assignedUsersService.AddAssignedUser(model);
-            return result ? Ok("Assigned user added successfully") : BadRequest("Failed to add assigned user");
+            if (result)
+            {
+                return Ok(new { message = "Assigned user added successfully" });
+            }
+
+            return BadRequest(new { message = "Failed to add assigned user" });
         }
 
         [Authorize(Roles = "Admin")]
@@ -44,7 +55,12 @@ namespace MealPlannerApi.Controllers
         public IActionResult UpdateAssignedUser(int id, AssignedUsersDto model)
         {
             var result = _assignedUsersService.UpdateAssignedUser(id, model);
-            return result ? Ok("Assigned user updated successfully") : NotFound("Assigned user not found");
+            if (result)
+            {
+                return Ok(new { message = "Assigned user updated successfully" });
+            }
+
+            return NotFound(new { message = "Assigned user not found" });
         }
 
         [Authorize(Roles = "Admin")]
@@ -52,7 +68,12 @@ namespace MealPlannerApi.Controllers
         public IActionResult DeleteAssignedUser(int id)
         {
             var result = _assignedUsersService.DeleteAssignedUser(id);
-            return result ? Ok("Assigned user deleted successfully") : NotFound("Assigned user not found");
+            if (result)
+            {
+                return Ok(new { message = "Assigned user deleted successfully" });
+            }
+
+            return NotFound(new { message = "Assigned user not found" });
         }
     }
 }

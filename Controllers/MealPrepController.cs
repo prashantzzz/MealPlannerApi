@@ -10,7 +10,7 @@ namespace MealPlannerApi.Controllers
     public class MealPrepController : ControllerBase
     {
         private readonly MealPrepService _mealPrepService;
-        
+
         public MealPrepController(MealPrepService mealPrepService)
         {
             _mealPrepService = mealPrepService;
@@ -20,7 +20,7 @@ namespace MealPlannerApi.Controllers
         [HttpGet]
         public IActionResult GetAllMealPreps()
         {
-            return Ok(_mealPrepService.GetAllMealPreps());
+            return Ok(new { data = _mealPrepService.GetAllMealPreps() });
         }
 
         [Authorize]
@@ -28,7 +28,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult GetMealPrepById(int id)
         {
             var mealPrep = _mealPrepService.GetMealPrepById(id);
-            return mealPrep != null ? Ok(mealPrep) : NotFound("Meal Prep not found");
+            return mealPrep != null
+                ? Ok(new { data = mealPrep })
+                : NotFound(new { message = "Meal Prep not found" });
         }
 
         [Authorize(Roles = "Admin,Chef")]
@@ -36,7 +38,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult AddMealPrep(MealPrepDto model)
         {
             var result = _mealPrepService.AddMealPrep(model);
-            return result ? Ok("Meal Prep added successfully") : BadRequest("Failed to add Meal Prep");
+            return result
+                ? Ok(new { message = "Meal Prep added successfully" })
+                : BadRequest(new { message = "Failed to add Meal Prep" });
         }
 
         [Authorize(Roles = "Admin,Chef")]
@@ -44,7 +48,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult UpdateMealPrep(int id, MealPrepDto model)
         {
             var result = _mealPrepService.UpdateMealPrep(id, model);
-            return result ? Ok("Meal Prep updated successfully") : NotFound("Meal Prep not found");
+            return result
+                ? Ok(new { message = "Meal Prep updated successfully" })
+                : NotFound(new { message = "Meal Prep not found" });
         }
 
         [Authorize(Roles = "Admin,Chef")]
@@ -52,7 +58,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult DeleteMealPrep(int id)
         {
             var result = _mealPrepService.DeleteMealPrep(id);
-            return result ? Ok("Meal Prep deleted successfully") : NotFound("Meal Prep not found");
+            return result
+                ? Ok(new { message = "Meal Prep deleted successfully" })
+                : NotFound(new { message = "Meal Prep not found" });
         }
     }
 }

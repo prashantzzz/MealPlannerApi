@@ -20,7 +20,7 @@ namespace MealPlannerApi.Controllers
         [HttpGet]
         public IActionResult GetAllReviews()
         {
-            return Ok(_reviewService.GetAllReviews());
+            return Ok(new { data = _reviewService.GetAllReviews() });
         }
 
         [Authorize]
@@ -28,7 +28,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult GetReviewById(int id)
         {
             var review = _reviewService.GetReviewById(id);
-            return review != null ? Ok(review) : NotFound("Review not found");
+            return review != null
+                ? Ok(new { data = review })
+                : NotFound(new { message = "Review not found" });
         }
 
         [Authorize]
@@ -36,7 +38,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult AddReview(ReviewDto model)
         {
             var result = _reviewService.AddReview(model);
-            return result ? Ok("Review added successfully") : BadRequest("Failed to add review");
+            return result
+                ? Ok(new { message = "Review added successfully" })
+                : BadRequest(new { message = "Failed to add review" });
         }
 
         [Authorize]
@@ -44,7 +48,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult UpdateReview(int id, ReviewDto model)
         {
             var result = _reviewService.UpdateReview(id, model);
-            return result ? Ok("Review updated successfully") : NotFound("Review not found");
+            return result
+                ? Ok(new { message = "Review updated successfully" })
+                : NotFound(new { message = "Review not found" });
         }
 
         [Authorize]
@@ -52,7 +58,9 @@ namespace MealPlannerApi.Controllers
         public IActionResult DeleteReview(int id)
         {
             var result = _reviewService.DeleteReview(id);
-            return result ? Ok("Review deleted successfully") : NotFound("Review not found");
+            return result
+                ? Ok(new { message = "Review deleted successfully" })
+                : NotFound(new { message = "Review not found" });
         }
     }
 }
