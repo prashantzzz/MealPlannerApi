@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿//AuthController.cs
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MealPlannerApi.DTOs;
 using MealPlannerApi.Services;
@@ -10,7 +11,6 @@ namespace MealPlannerApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AuthService _authService;
-
         public AuthController(AuthService authService)
         {
             _authService = authService;
@@ -47,6 +47,18 @@ namespace MealPlannerApi.Controllers
 
             var result = _authService.Register(model);
             return result ? Ok($"{model.Role} registered successfully") : BadRequest("Registration failed");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("user/{userId}")]
+        public IActionResult DeleteUser(int userId)
+        {
+            // Call the service method to delete the user
+            var result = _authService.DeleteUser(userId);
+
+            return result
+                ? Ok($"User with ID {userId} deleted successfully")
+                : NotFound($"User with ID {userId} not found");
         }
     }
 }

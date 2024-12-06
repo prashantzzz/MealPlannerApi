@@ -1,4 +1,5 @@
-﻿namespace MealPlannerApi.DTOs
+﻿//regster role dto
+namespace MealPlannerApi.DTOs
 {
     public class RegisterRoleRequestDto
     {

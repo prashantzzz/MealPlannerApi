@@ -1,4 +1,5 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿//AuthService.cs
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
@@ -14,7 +15,6 @@ namespace MealPlannerApi.Services
         private readonly IConfiguration _config;
         private readonly ApplicationDbContext _context;
         private readonly JwtHelper _jwtHelper;
-
         public AuthService(IConfiguration config, ApplicationDbContext context, JwtHelper jwtHelper)
         {
             _config = config;
@@ -48,17 +48,14 @@ namespace MealPlannerApi.Services
         {
             var user = _context.Users.FirstOrDefault(u => u.Username == model.Username || u.Email == model.Email);
             if (user != null)
-                return false; // User already exists
-
-            // Hash password
+                return false; 
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
-            // Create the new user object
             var newUser = new User
             {
                 Username = model.Username,
                 PasswordHash = hashedPassword,
-                Role = "Customer", // Default role is Customer
+                Role = "Customer", // Default role 
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
                 IsActive = true
@@ -74,16 +71,13 @@ namespace MealPlannerApi.Services
         {
             var user = _context.Users.FirstOrDefault(u => u.Username == model.Username || u.Email == model.Email);
             if (user != null)
-                return false; // User already exists
+                return false;
 
-            // Hash password
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
-            // Validate role
             if (!new[] { "Chef", "Nutritionist", "Meal Planner" }.Contains(model.Role))
-                return false; // Invalid role
+                return false;
 
-            // Create the new user object with specific role
             var newUser = new User
             {
                 Username = model.Username,
@@ -97,6 +91,25 @@ namespace MealPlannerApi.Services
             _context.Users.Add(newUser);
             _context.SaveChanges();
             return true;
+        }
+
+        public bool DeleteUser(int userId)
+        {
+            try
+            {
+                var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+
+                if (user == null)
+                    return false;
+
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         private string HashPassword(string password)

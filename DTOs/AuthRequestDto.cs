@@ -1,4 +1,5 @@
-﻿namespace MealPlannerApi.DTOs
+﻿//auth request dto
+namespace MealPlannerApi.DTOs
 {
     public class AuthRequestDto
     {
