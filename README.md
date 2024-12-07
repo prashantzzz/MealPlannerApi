@@ -7,8 +7,17 @@
  - Fix endpoints working
 
 ## **Project Overview**  
-A web-based application that helps users plan meals, create recipes, track nutrition, and manage shopping lists. Features include user authentication, role-based access control (RBAC), recipe management, meal planning, and analytics.
-
+ - User Authentication: Secure login with role-based access (Admin, Chef, Nutritionist, Customer, Meal Planner).
+ - Recipe Management: Create and manage recipes with ingredients, cooking details, and nutritional info.
+ - Meal Planning: Personalized meal plans based on dietary needs and preferences.
+ - Shopping Lists: Auto-generated lists with ingredient tracking and stock management.
+ - Nutritional Tracking: Track daily intake against goals with detailed recipe nutrition data.
+ - Dietary Preferences: Custom meal suggestions based on dietary restrictions.
+ - Cooking Instructions: Step-by-step recipes with ratings and reviews.
+ - Subscription & Payments: Manage subscriptions for meal plans and services.
+ - Analytics: Reports on nutrition, meal adherence, and recipe popularity.
+ - Meal Prep & Portion Control: Adjust portions and get meal prep tips.
+ - Multi-Platform: Accessible on desktop, tablet, and mobile.
 ---
 
 ## **Tech Stack**
