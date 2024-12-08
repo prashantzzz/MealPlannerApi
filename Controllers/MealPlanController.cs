@@ -17,7 +17,7 @@ namespace MealPlannerApi.Controllers
             _mealPlanService = mealPlanService;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Amin,Customer,MealPlanner")]
         [HttpGet]
         public IActionResult GetMealPlans()
         {
@@ -40,7 +40,7 @@ namespace MealPlannerApi.Controllers
 
 
 
-        [Authorize]
+        [Authorize(Roles = "Amin,Customer,MealPlanner")]
         [HttpGet("{id}")]
         public IActionResult GetMealPlanById(int id)
         {
@@ -53,7 +53,7 @@ namespace MealPlannerApi.Controllers
             return NotFound(new { message = "Meal plan not found" });
         }
 
-        [Authorize(Roles = "Customer,MealPlanner")]
+        [Authorize(Roles = "Amin,Customer,MealPlanner")]
         [HttpPost]
         public IActionResult CreateMealPlan(MealPlanDto model)
         {
@@ -66,7 +66,7 @@ namespace MealPlannerApi.Controllers
             return BadRequest(new { message = "Meal plan creation failed" });
         }
 
-        [Authorize(Roles = "Customer,MealPlanner")]
+        [Authorize(Roles = "Admin,Customer,MealPlanner")]
         [HttpPut("{id}")]
         public IActionResult UpdateMealPlan(int id, MealPlanDto model)
         {

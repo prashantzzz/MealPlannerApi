@@ -1,5 +1,10 @@
-create database MealPlannerDb
+SELECT name,state_desc FROM sys.databases;
+ALTER DATABASE MealPlannerDb SET ONLINE;
 
+DBCC CHECKDB(MealPlannerDb) WITH NO_INFOMSGS;
+
+create database MealPlannerDb
+use MealPlannerDb
 -- Users Table
 CREATE TABLE Users (
     UserId INT IDENTITY(1,1) PRIMARY KEY,
@@ -147,6 +152,7 @@ VALUES (5,3,2,4),(6,12,11,13);
 select * from AssignedUsers;
 
 -- Insert 5 rows into Recipes table
+select * from recipes;
 INSERT INTO Recipes (Name, Category, Ingredients, PreparationSteps, CookingTime, Servings, NutritionalInfo) VALUES
 ('Omelette',    'Breakfast',    'Eggs,      Milk,       Salt,       Pepper', 3, 10, 1, 'Protein-rich'),
 ('Pasta',       'Lunch',        'Pasta,     Tomato Sauce,      Cheese', 4, 30, 2, 'Carb-rich'),
