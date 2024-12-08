@@ -5,6 +5,8 @@
  - No need of migration due to manual table creation
  - Add data validation in services
  - Fix endpoints working
+ - Make preparation steps api endpoint
+ - Check nuutrition, dietry preference, reports
 
 ## **Project Overview**  
  - User Authentication: Secure login with role-based access (Admin, Chef, Nutritionist, Customer, Meal Planner).

@@ -38,6 +38,8 @@ namespace MealPlannerApi.Controllers
             return Ok(new { message = "Meal plans retrieved successfully", data = mealPlans });
         }
 
+
+
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetMealPlanById(int id)

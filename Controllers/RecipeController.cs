@@ -33,7 +33,7 @@ namespace MealPlannerApi.Controllers
                 : NotFound(new { message = "Recipe not found" });
         }
 
-        [Authorize(Roles = "Chef,Nutritionist")]
+        [Authorize(Roles = "Admin,Chef,Nutritionist")]
         [HttpPost]
         public IActionResult CreateRecipe(RecipeDto model)
         {
@@ -43,7 +43,7 @@ namespace MealPlannerApi.Controllers
                 : BadRequest(new { message = "Creation failed" });
         }
 
-        [Authorize(Roles = "Chef,Nutritionist")]
+        [Authorize(Roles = "Admin,Chef,Nutritionist")]
         [HttpPut("{id}")]
         public IActionResult UpdateRecipe(int id, RecipeDto model)
         {
@@ -53,7 +53,7 @@ namespace MealPlannerApi.Controllers
                 : NotFound(new { message = "Recipe not found" });
         }
 
-        [Authorize(Roles = "Chef,Nutritionist")]
+        [Authorize(Roles = "Admin,Chef,Nutritionist")]
         [HttpDelete("{id}")]
         public IActionResult DeleteRecipe(int id)
         {

@@ -7,7 +7,7 @@ namespace MealPlannerApi.Controllers
 {
     [ApiController]
     [Route("api/users")]
-    [Authorize(Roles = "Admin")]
+    
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
@@ -18,12 +18,14 @@ namespace MealPlannerApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetAllUsers()
         {
             return Ok(new { data = _userService.GetAllUsers() });
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult GetUserById(int id)
         {
             var user = _userService.GetUserById(id);
@@ -33,6 +35,7 @@ namespace MealPlannerApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateUser(int id, UserDto model)
         {
             var result = _userService.UpdateUser(id, model);
@@ -42,6 +45,7 @@ namespace MealPlannerApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteUser(int id)
         {
             var result = _userService.DeleteUser(id);
