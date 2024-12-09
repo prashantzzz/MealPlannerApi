@@ -30,7 +30,8 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AssignedUsersService>();
 builder.Services.AddScoped<MealPrepService>();
 builder.Services.AddScoped<DietaryPreferenceService>();
-
+builder.Services.AddScoped<ReportService>();
+builder.Services.AddScoped<NutritionService>();
 
 // Add services to the container.
 builder.Services.AddCors(options =>

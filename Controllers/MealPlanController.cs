@@ -53,6 +53,14 @@ namespace MealPlannerApi.Controllers
             return NotFound(new { message = "Meal plan not found" });
         }
 
+        [Authorize(Roles = "Admin")] 
+        [HttpGet("all")]
+        public IActionResult GetAllMealPlans()
+        {
+            var mealPlans = _mealPlanService.GetAllMealPlans();
+            return Ok(new { message = "All meal plans retrieved successfully", data = mealPlans });
+        }
+
         [Authorize(Roles = "Amin,Customer,MealPlanner")]
         [HttpPost]
         public IActionResult CreateMealPlan(MealPlanDto model)

@@ -6,17 +6,14 @@ namespace MealPlannerApi.Models
     {
         [Key]
         public int ReportId { get; set; }
-
-        [Required, MaxLength(50)]
-        public string ReportType { get; set; } // e.g., Adherence, Popularity
-
+        [Required]
+        [MaxLength(50)]
+        public string ReportType { get; set; }
         [Required]
         public DateTime GeneratedDate { get; set; }
-
+        public string Data { get; set; }
         [Required]
-        public string Data { get; set; } // JSON or serialized data
-
-        [Required, MaxLength(50)]
-        public string CreatedBy { get; set; } // User or admin generating the report
+        [MaxLength(50)]
+        public string CreatedBy { get; set; }
     }
 }

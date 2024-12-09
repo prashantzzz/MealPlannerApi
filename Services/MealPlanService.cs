@@ -28,6 +28,11 @@ namespace MealPlannerApi.Services
             return _context.MealPlans.Find(id);
         }
 
+        public List<MealPlan> GetAllMealPlans()
+        {
+            return _context.MealPlans.ToList();
+        }
+
         public bool CreateMealPlan(MealPlanDto model)
         {
             var mealPlan = new MealPlan

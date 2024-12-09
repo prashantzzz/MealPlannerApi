@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MealPlannerApi.Models
 {
@@ -11,17 +12,14 @@ namespace MealPlannerApi.Models
         public int RecipeId { get; set; }
 
         [Required]
-        public int Calories { get; set; }
+        public int Calories { get; set; }  // Keep as int
 
-        [Required]
-        public double Protein { get; set; }
+        public int Protein { get; set; }   // Change to int
+        public int Carbs { get; set; }     // Change to int
+        public int Fat { get; set; }       // Change to int
+        public string Vitamins { get; set; }
 
-        [Required]
-        public double Carbs { get; set; }
-
-        [Required]
-        public double Fat { get; set; }
-
-        public string Vitamins { get; set; } // JSON or delimited string
+        [ForeignKey("RecipeId")]
+        public Recipe Recipe { get; set; }
     }
 }

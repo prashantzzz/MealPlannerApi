@@ -1,12 +1,10 @@
 ﻿# **Recipe and Meal Planning Management System**
 
 ## **Task to be completed**
- - Match all the models with all the table columns writing the maxlengths/required attr. and other validations
  - No need of migration due to manual table creation
  - Add data validation in services
- - Fix endpoints working
- - Make preparation steps api endpoint
- - Check nuutrition, dietry preference, reports
+ - Fix endpoints working: Check nuutrition, reports
+ - Add auth guard just like recipe to other components to redirect to login
 
 ## **Project Overview**  
  - User Authentication: Secure login with role-based access (Admin, Chef, Nutritionist, Customer, Meal Planner).
