@@ -1,10 +1,5 @@
-SELECT name,state_desc FROM sys.databases;
-ALTER DATABASE MealPlannerDb SET ONLINE;
-
-DBCC CHECKDB(MealPlannerDb) WITH NO_INFOMSGS;
-
 create database MealPlannerDb
-use MealPlannerDb
+
 -- Users Table
 CREATE TABLE Users (
     UserId INT IDENTITY(1,1) PRIMARY KEY,
@@ -68,7 +63,7 @@ CREATE TABLE ShoppingLists (
     Quantity FLOAT,
     Status NVARCHAR(10)
 );
-
+select * from ShoppingLists;
 -- Nutrition Table
 CREATE TABLE Nutrition (
     NutritionId INT IDENTITY(1,1) PRIMARY KEY,
@@ -97,8 +92,6 @@ CREATE TABLE Reviews (
     ReviewText NVARCHAR(MAX),
     ReviewDate DATE NOT NULL
 );
-
--- Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;
 
 -- Subscriptions Table
 CREATE TABLE Subscriptions (
@@ -146,21 +139,29 @@ INSERT INTO Users (Username, PasswordHash, Role, Email, PhoneNumber, IsActive) V
 ('Yashi',		 '$2a$10$rtsdSo8xXzL7t0TMrMiU8enxvzOYRwldtF2dnIlZ0HeHcm2lyKDd2', 'Customer',	'yashi@example.com',	'9856291245', 1),
 ('Ansh',		 '$2a$10$rtsdSo8xXzL7t0TMrMiU8enxvzOYRwldtF2dnIlZ0HeHcm2lyKDd2', 'Customer',	'ansh@example.com',		'7458231245', 0);
 
-
+select * from AssignedUsers
 INSERT INTO AssignedUsers (UserId, NutriId, ChefId, PlannerId)
 VALUES (5,3,2,4),(6,12,11,13);
-select * from AssignedUsers;
 
 -- Insert 5 rows into Recipes table
-select * from recipes;
+select * from Recipes
 INSERT INTO Recipes (Name, Category, Ingredients, PreparationSteps, CookingTime, Servings, NutritionalInfo) VALUES
-('Omelette',    'Breakfast',    'Eggs,      Milk,       Salt,       Pepper', 3, 10, 1, 'Protein-rich'),
-('Pasta',       'Lunch',        'Pasta,     Tomato Sauce,      Cheese', 4, 30, 2, 'Carb-rich'),
-('Grilled Chicken','Dinner',   'Chicken,   Spices,      Olive Oil', 5, 40, 3, 'High Protein'),
-('Salad',       'Snacks',       'Lettuce,   Tomato,     Cucumber,   Dressing', 3, 10, 1, 'Low Calorie'),
-('Smoothie',    'Breakfast',    'Milk,      Banana,     Berries',   4, 5, 1,    'Vitamins and Minerals');
+('Omelette',    'Breakfast',    'Eggs, Milk, Salt, Pepper',		3, 10, 1, 'Protein-rich'),
+('Pasta',       'Lunch',        'Pasta, Tomato Sauce, Cheese',	4, 30, 2, 'Carb-rich'),
+('Grilled Chicken','Dinner',   'Chicken, Spices, Olive Oil',	5, 40, 3, 'High Protein'),
+('Salad',       'Snacks',       'Lettuce, Tomato, Cucumber, Dressing', 3, 10, 1, 'Low Calorie'),
+('Smoothie',    'Breakfast',    'Milk, Banana, Berries',		4, 5, 1,    'Vitamins and Minerals'),
+('Pancakes',    'Breakfast',    'Flour, Eggs, Milk, Sugar, Baking Powder',	5, 20, 4, 'High Carb'),
+('Veggie Stir-fry','Lunch',     'Broccoli, Carrot, Bell Pepper, Soy Sauce', 4, 25, 2, 'Low Calorie, High Fiber'),
+('Beef Stew',   'Dinner',       'Beef, Potatoes, Carrots, Onion, Broth',    6, 120, 4,'High Protein, Comfort Food'),
+('Fruit Salad', 'Snacks',       'Apple, Orange, Grapes, Banana, Honey',     2, 10, 3, 'Vitamins and Minerals'),
+('Avocado Toast','Breakfast',   'Bread, Avocado, Salt, Lemon Juice',        3, 10, 1, 'Healthy Fats'),
+('Burger',      'Lunch',        'Bun, Beef Patty, Lettuce, Tomato, Cheese', 5, 25, 1, 'High Protein'),
+('Grilled Salmon','Dinner',     'Salmon, Lemon, Garlic, Olive Oil',         4, 30, 2, 'Omega-3 Rich'),
+('Popcorn',     'Snacks',       'Corn Kernels, Butter, Salt',               3, 10, 2, 'Light Snack');
 
 -- MealPlans table
+select * from MealPlans
 INSERT INTO MealPlans (UserId, StartDate, EndDate, MealType, RecipeId) VALUES
 (5, '2024-12-01', '2024-12-07', 'Breakfast', 1),
 (6, '2024-12-01', '2024-12-14', 'Lunch', 2),
@@ -169,17 +170,33 @@ INSERT INTO MealPlans (UserId, StartDate, EndDate, MealType, RecipeId) VALUES
 (7, '2024-12-01', '2024-12-10', 'Dinner', 3),
 (8, '2024-12-01', '2024-12-14', 'Snacks', 4),
 (9, '2024-12-01', '2024-12-07', 'Breakfast', 5),
-(10, '2024-12-01', '2024-12-21', 'Breakfast', 5);
+(10, '2024-12-01', '2024-12-21', 'Breakfast', 5),
+(5, '2024-12-01', '2024-12-07', 'Lunch', 11),
+(5, '2024-12-01', '2024-12-14', 'Snacks', 9),
+(6, '2024-12-01', '2024-12-07', 'Breakfast', 10),
+(6, '2024-12-01', '2024-12-14', 'Dinner', 12),
+(7, '2024-12-01', '2024-12-07', 'Breakfast', 6),
+(7, '2024-12-01', '2024-12-07', 'Lunch', 11),
+(7, '2024-12-01', '2024-12-14', 'Snacks', 9),
+(8, '2024-12-01', '2024-12-14', 'Breakfast', 5),
+(8, '2024-12-01', '2024-12-07', 'Lunch', 7),
+(8, '2024-12-01', '2024-12-14', 'Dinner', 8),
+(9, '2024-12-01', '2024-12-07', 'Lunch', 7),
+(9, '2024-12-01', '2024-12-14', 'Dinner', 8),
+(10, '2024-12-01', '2024-12-07', 'Lunch', 7),
+(10, '2024-12-01', '2024-12-14', 'Dinner', 8);
 
--- Insert 5 rows into ShoppingList table
-INSERT INTO ShoppingList (MealPlanId, IngredientName, Quantity, Status) VALUES
-(1, 'Eggs', '6 pcs', 'Pending'),
-(2, 'Pasta', '200 gm', 'Pending'),
-(3, 'Chicken', '500 gm', 'Pending'),
-(4, 'Lettuce', '1 bunch', 'Purchased'),
-(5, 'Milk', '500 ml', 'Pending');
+-- ShoppingList table
+select * from ShoppingLists
+INSERT INTO ShoppingLists (MealPlanId, IngredientName, Quantity, Status) VALUES
+(1, 'Eggs', '6', 'Pending'),
+(2, 'Pasta', '200', 'Pending'),
+(3, 'Chicken', '500', 'Pending'),
+(4, 'Lettuce', '200', 'Purchased'),
+(5, 'Milk', '500', 'Pending');
 
 -- Nutrition table
+select * from Nutrition
 INSERT INTO Nutrition (RecipeId, Calories, Protein, Carbs, Fat, Vitamins) VALUES
 (1, 200, 12.5, 1.5, 15, 'Vitamin D'),
 (2, 350, 10, 50, 12, 'Vitamin B'),
@@ -188,6 +205,7 @@ INSERT INTO Nutrition (RecipeId, Calories, Protein, Carbs, Fat, Vitamins) VALUES
 (5, 250, 8, 40, 3, 'Antioxidants');
 
 -- DietaryPreferences table
+select * from DietaryPreferences
 INSERT INTO DietaryPreferences (UserId, PreferenceType, Description) VALUES
 (5, 'Vegetarian', 'No meat, fish, or poultry'),
 (6, 'Gluten-Free', 'No wheat or gluten products'),
@@ -196,6 +214,7 @@ INSERT INTO DietaryPreferences (UserId, PreferenceType, Description) VALUES
 (9, 'Pescatarian', 'Includes fish but no other meat');
 
 -- CookingInstructions table
+select * from CookingInstructions
 INSERT INTO CookingInstructions (RecipeId, StepNumber, Description, EquipmentNeeded) VALUES
 (1, 1, 'Crack the eggs into a bowl and add milk. Whisk until combined.', 'Bowl, Whisk'),
 (1, 2, 'Heat a non-stick pan over medium heat.', 'Non-stick pan, Stove'),
@@ -221,7 +240,7 @@ INSERT INTO CookingInstructions (RecipeId, StepNumber, Description, EquipmentNee
 (5, 3, 'Blend until smooth and creamy.', 'Blender'),
 (5, 4, 'Pour into a glass and serve immediately.', 'Glass');
 
-
+select * from Reviews;
 -- Reviews table
 INSERT INTO Reviews (RecipeId, UserId, Rating, ReviewText, ReviewDate) VALUES
 (1, 5, 5, 'Easy and delicious!', '2024-10-30'),
@@ -246,6 +265,7 @@ INSERT INTO Reviews (RecipeId, UserId, Rating, ReviewText, ReviewDate) VALUES
 (5, 6, 4, 'Great flavor, but I wish it was a bit thicker.', '2024-12-01');
 
 -- Subscriptions table
+select * from Subscriptions
 INSERT INTO Subscriptions (UserId, SubscriptionType, StartDate, EndDate, PaymentStatus) VALUES
 (5, 'Basic', '2024-12-01', '2025-12-01', 'Paid'),
 (6, 'Premium', '2024-12-01', '2025-12-01', 'Paid'),
@@ -254,6 +274,7 @@ INSERT INTO Subscriptions (UserId, SubscriptionType, StartDate, EndDate, Payment
 (9, 'Basic', '2024-12-01', '2025-12-01', 'Paid');
 
 -- Reports table with mock data
+select * from reports
 INSERT INTO Reports (ReportType, GeneratedDate, Data, CreatedBy) VALUES
 ('Users', '2024-11-30', 'Active: 8, Inactive: 2', 'Admin1'),
 ('Recipes', '2024-11-30', '5', 'Admin1'),
@@ -262,6 +283,7 @@ INSERT INTO Reports (ReportType, GeneratedDate, Data, CreatedBy) VALUES
 ('Subscription Types', '2024-11-30', 'Premium: 3, Basic: 2', 'Admin1'),
 ('Most Popular Recipe', '2024-11-30', 'Recipe ID 3: Grilled Chicken with 4 reviews', 'Admin1');
 
+select * from MealPrep
 -- MealPrep table
 INSERT INTO MealPrep (RecipeId, PortionSize, IngredientsRequired, PrepTime) VALUES
 (1, '1 Serving', 'Eggs: 2 pcs, Milk: 50 ml, Salt: 3 gm, Pepper: 5 gm', 15),

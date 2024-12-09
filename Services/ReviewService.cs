@@ -13,6 +13,20 @@ namespace MealPlannerApi.Services
             _context = context;
         }
 
+        public IEnumerable<ReviewDto> GetReviewsByRecipeId(int recipeId)
+        {
+            return _context.Reviews
+                .Where(r => r.RecipeId == recipeId)
+                .Select(r => new ReviewDto
+                {
+                    RecipeId = r.RecipeId,
+                    UserId = r.UserId,
+                    Rating = r.Rating,
+                    ReviewText = r.ReviewText,
+                    ReviewDate = r.ReviewDate
+                }).ToList();
+        }
+
         public List<Review> GetAllReviews()
         {
             return _context.Reviews.ToList();

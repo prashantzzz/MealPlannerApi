@@ -17,6 +17,16 @@ namespace MealPlannerApi.Controllers
         }
 
         [Authorize]
+        [HttpGet("recipe/{recipeId}")]
+        public IActionResult GetReviewsByRecipeId(int recipeId)
+        {
+            var reviews = _reviewService.GetReviewsByRecipeId(recipeId);
+            return reviews.Any()
+                ? Ok(new { data = reviews })
+                : NotFound(new { message = "No reviews found for the specified recipe" });
+        }
+
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllReviews()
         {

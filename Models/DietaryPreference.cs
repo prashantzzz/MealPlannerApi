@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MealPlannerApi.Models
 {
@@ -6,14 +7,11 @@ namespace MealPlannerApi.Models
     {
         [Key]
         public int PreferenceId { get; set; }
-
         [Required]
         public int UserId { get; set; }
-
-        [Required, MaxLength(50)]
-        public string PreferenceType { get; set; } // Vegetarian, Vegan, etc.
-
-        [MaxLength(200)]
+        [Required]
+        [MaxLength(30)]
+        public string PreferenceType { get; set; }
         public string Description { get; set; }
     }
 }
