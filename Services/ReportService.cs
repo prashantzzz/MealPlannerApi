@@ -33,5 +33,12 @@ namespace MealPlannerApi.Services
 
             return report;
         }
+
+        public async Task DeleteAllReportsAsync()
+        {
+            _context.Reports.RemoveRange(_context.Reports);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

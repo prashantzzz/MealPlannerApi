@@ -30,8 +30,6 @@ namespace MealPlannerApi.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GenerateReport([FromBody] ReportDto reportDto)
         {
             if (string.IsNullOrEmpty(reportDto.ReportType))
@@ -52,6 +50,15 @@ namespace MealPlannerApi.Controllers
 
             return CreatedAtAction(nameof(GetReports), new { id = report.ReportId }, report);
         }
+
+        [HttpDelete]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteAllReports()
+        {
+            await _reportService.DeleteAllReportsAsync();
+            return NoContent(); // Return 204 No Content to indicate successful deletion
+        }
+
 
     }
 }
