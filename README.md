@@ -1,10 +1,7 @@
 ﻿# **Recipe and Meal Planning Management System**
 
-## **Task to be completed**
- - No need of migration due to manual table creation
- - Add data validation in services
- - Fix endpoints working: Check nuutrition, reports
- - Add auth guard just like recipe to other components to redirect to login
+## **Check Swagger UI pdf**
+ - Stores the pdf of all the endpoints
 
 ## **Project Overview**  
  - User Authentication: Secure login with role-based access (Admin, Chef, Nutritionist, Customer, Meal Planner).
@@ -80,7 +77,7 @@
 
 ---
 
-## **API Endpoints**
+## **Few API Endpoints**
 ![image](https://github.com/user-attachments/assets/9da8b9ac-cde0-4b43-a0dd-1a1bbdf16c27)
 ![image](https://github.com/user-attachments/assets/ed38391d-83a2-4ff3-937f-ae293d592b4c)
 
