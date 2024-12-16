@@ -63,7 +63,7 @@ CREATE TABLE ShoppingLists (
     Quantity FLOAT,
     Status NVARCHAR(10)
 );
-select * from ShoppingLists;
+
 -- Nutrition Table
 CREATE TABLE Nutrition (
     NutritionId INT IDENTITY(1,1) PRIMARY KEY,
