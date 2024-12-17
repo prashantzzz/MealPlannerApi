@@ -17,7 +17,7 @@ namespace MealPlannerApi.Controllers
             _mealPlanService = mealPlanService;
         }
 
-        [Authorize(Roles = "Amin,Customer,MealPlanner")]
+        [Authorize(Roles = "Admin,Customer,MealPlanner")]
         [HttpGet]
         public IActionResult GetMealPlans()
         {
@@ -40,7 +40,7 @@ namespace MealPlannerApi.Controllers
 
 
 
-        [Authorize(Roles = "Amin,Customer,MealPlanner")]
+        [Authorize(Roles = "Admin,Customer,MealPlanner")]
         [HttpGet("{id}")]
         public IActionResult GetMealPlanById(int id)
         {
@@ -61,7 +61,7 @@ namespace MealPlannerApi.Controllers
             return Ok(new { message = "All meal plans retrieved successfully", data = mealPlans });
         }
 
-        [Authorize(Roles = "Amin,Customer,MealPlanner")]
+        [Authorize(Roles = "Admin,Customer,MealPlanner")]
         [HttpPost]
         public IActionResult CreateMealPlan(MealPlanDto model)
         {

@@ -49,8 +49,13 @@ namespace MealPlannerApi.Services
 
         public bool UpdateMealPlan(int id, MealPlanDto model)
         {
+            Console.WriteLine($"Attempting to update MealPlan with ID: {id}"); // Debugging
             var mealPlan = _context.MealPlans.Find(id);
-            if (mealPlan == null) return false;
+            if (mealPlan == null)
+            {
+                Console.WriteLine($"MealPlan with ID {id} not found.");
+                return false;
+            }
 
             mealPlan.StartDate = model.StartDate;
             mealPlan.EndDate = model.EndDate;
@@ -58,6 +63,7 @@ namespace MealPlannerApi.Services
             mealPlan.RecipeId = model.RecipeId;
             return _context.SaveChanges() > 0;
         }
+
 
         public bool DeleteMealPlan(int id)
         {

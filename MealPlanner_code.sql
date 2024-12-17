@@ -162,6 +162,8 @@ INSERT INTO Recipes (Name, Category, Ingredients, PreparationSteps, CookingTime,
 
 -- MealPlans table
 select * from MealPlans
+SELECT * FROM MealPlans WHERE MealPlanId = 6;
+--delete from MealPlans where mealplanid=26;
 INSERT INTO MealPlans (UserId, StartDate, EndDate, MealType, RecipeId) VALUES
 (5, '2024-12-01', '2024-12-07', 'Breakfast', 1),
 (6, '2024-12-01', '2024-12-14', 'Lunch', 2),
@@ -170,7 +172,7 @@ INSERT INTO MealPlans (UserId, StartDate, EndDate, MealType, RecipeId) VALUES
 (7, '2024-12-01', '2024-12-10', 'Dinner', 3),
 (8, '2024-12-01', '2024-12-14', 'Snacks', 4),
 (9, '2024-12-01', '2024-12-07', 'Breakfast', 5),
-(10, '2024-12-01', '2024-12-21', 'Breakfast', 5),
+(10,'2024-12-01', '2024-12-21', 'Breakfast', 5),
 (5, '2024-12-01', '2024-12-07', 'Lunch', 11),
 (5, '2024-12-01', '2024-12-14', 'Snacks', 9),
 (6, '2024-12-01', '2024-12-07', 'Breakfast', 10),
@@ -183,8 +185,8 @@ INSERT INTO MealPlans (UserId, StartDate, EndDate, MealType, RecipeId) VALUES
 (8, '2024-12-01', '2024-12-14', 'Dinner', 8),
 (9, '2024-12-01', '2024-12-07', 'Lunch', 7),
 (9, '2024-12-01', '2024-12-14', 'Dinner', 8),
-(10, '2024-12-01', '2024-12-07', 'Lunch', 7),
-(10, '2024-12-01', '2024-12-14', 'Dinner', 8);
+(10,'2024-12-01', '2024-12-07', 'Lunch', 7),
+(10,'2024-12-01', '2024-12-14', 'Dinner', 8);
 
 -- ShoppingList table
 select * from ShoppingLists
