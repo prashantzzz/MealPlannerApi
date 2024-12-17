@@ -32,6 +32,7 @@ namespace MealPlannerApi.Services
             return new AuthResponseDto
             {
                 Username = user.Username,
+                UserId= user.UserId,
                 Role = user.Role,
                 Token = token
             };

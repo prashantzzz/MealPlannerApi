@@ -53,7 +53,7 @@ namespace MealPlannerApi.Controllers
             return NotFound(new { message = "Meal plan not found" });
         }
 
-        [Authorize(Roles = "Admin")] 
+        [Authorize(Roles = "Admin,MealPlanner")] 
         [HttpGet("all")]
         public IActionResult GetAllMealPlans()
         {
